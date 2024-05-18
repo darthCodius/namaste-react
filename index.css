@@ -27,14 +27,14 @@
 
 .res-card {
   width: 200px;
-  height: 300px;
-
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   margin: 0 0.5rem;
   transition: all 0.2s ease-in;
+  padding: 0 0.5rem 1rem 0.5rem;
 }
 
 .search {
@@ -45,11 +45,12 @@
   width: 95%;
   padding-top: 0.5rem;
   margin-bottom: 0.8rem;
+  height: 150px;
 }
 
 .res-card:hover {
   cursor: pointer;
-  scale: 0.9;
+  scale: 1;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -57,4 +58,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.res-container:has(:hover) .res-card:not(:hover) {
+  filter: blur(4px);
+  scale: 0.9;
 }

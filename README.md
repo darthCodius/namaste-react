@@ -18,3 +18,26 @@
 - Error Handling
 - HTTPs
 - Tree
+
+# Food Ordering App
+
+/\*\*
+
+- Header
+- - Logo
+- - Nav
+-
+- Body
+- -Search
+- - RestaurantContainer
+-     -RestaurantCard
+-         -Image
+-         -Name of Restaurant, Star Rating, Cuisine, Delivery Time
+-
+-
+- Footer
+-      -Copyright
+-      -Links
+-      -Address
+-      -Contact
+  \*/
