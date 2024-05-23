@@ -1,573 +1,94 @@
-import RestaurantCard from "./RestaurantCard";
+import { useState, useEffect } from "react";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../hooks/useOnlineStatus";
+import BodyShimmer from "./BodyShimmer";
 
-const resList = [
-  {
-    type: "restaurant",
-    data: {
-      type: "F",
-      id: "89361",
-      name: "La Pino'z Pizza",
-      cloudinaryImageId: "dek7ifvgfbnddngpqn4r",
-      locality: "Hazratganj",
-      areaName: "Hazratganj",
-      costForTwo: "₹250 for two",
-      cuisines: ["Pizzas", "Pastas", "Italian", "Desserts", "Beverages"],
-      avgRating: 4.3,
-      parentId: "4961",
-      avgRatingString: "4.3",
-      totalRatingsString: "10K+",
-      sla: {
-        deliveryTime: 24,
-        lastMileTravel: 0.8,
-        serviceability: "SERVICEABLE",
-        slaString: "20-25 mins",
-        lastMileTravelString: "0.8 km",
-        iconType: "ICON_TYPE_EMPTY",
-      },
-      availability: {
-        nextCloseTime: "2024-05-19 04:00:00",
-        opened: true,
-      },
-      badges: {
-        imageBadges: [
-          {
-            imageId: "Rxawards/_CATEGORY-Pizza.png",
-            description: "Delivery!",
-          },
-        ],
-      },
-      isOpen: true,
-      type: "F",
-      badgesV2: {
-        entityBadges: {
-          textExtendedBadges: {},
-          textBased: {},
-          imageBased: {
-            badgeObject: [
-              {
-                attributes: {
-                  imageId: "Rxawards/_CATEGORY-Pizza.png",
-                  description: "Delivery!",
-                },
-              },
-            ],
-          },
-        },
-      },
-      aggregatedDiscountInfoV3: {
-        header: "₹125 OFF",
-        subHeader: "ABOVE ₹349",
-        discountTag: "FLAT DEAL",
-      },
-      orderabilityCommunication: {
-        title: {},
-        subTitle: {},
-        message: {},
-        customIcon: {},
-      },
-      differentiatedUi: {
-        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-        differentiatedUiMediaDetails: {
-          mediaType: "ADS_MEDIA_ENUM_IMAGE",
-          lottie: {},
-          video: {},
-        },
-      },
-      reviewsSummary: {},
-      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-      restaurantOfferPresentationInfo: {},
-      externalRatings: {
-        aggregatedRating: {
-          rating: "4.2",
-          ratingCount: "1K+",
-        },
-        source: "GOOGLE",
-        sourceIconImageId: "v1704440323/google_ratings/rating_google_tag",
-      },
-      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
-    },
-    analytics: {},
-    cta: {
-      link: "swiggy://menu?restaurant_id=89361&source=collection&query=Pizza",
-      text: "RESTAURANT_MENU",
-      type: "DEEPLINK",
-    },
-    widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food",
-  },
-  {
-    type: "restaurant",
-    data: {
-      type: "F",
-      id: "618894",
-      name: "Pizza Cave",
-      cloudinaryImageId: "xiyi3w2x4bogquvchunq",
-      locality: "Vivek Khand",
-      areaName: "Indira Nagar",
-      costForTwo: "₹200 for two",
-      cuisines: ["Pizzas", "Snacks"],
-      avgRating: 4.2,
-      parentId: "4961",
-      avgRatingString: "4.2",
-      totalRatingsString: "10K+",
-      sla: {
-        deliveryTime: 44,
-        lastMileTravel: 0.8,
-        serviceability: "SERVICEABLE",
-        slaString: "20-25 mins",
-        lastMileTravelString: "0.8 km",
-        iconType: "ICON_TYPE_EMPTY",
-      },
-      availability: {
-        nextCloseTime: "2024-05-19 04:00:00",
-        opened: true,
-      },
-      badges: {
-        imageBadges: [
-          {
-            imageId: "Rxawards/_CATEGORY-Pizza.png",
-            description: "Delivery!",
-          },
-        ],
-      },
-      isOpen: true,
-      type: "F",
-      badgesV2: {
-        entityBadges: {
-          textExtendedBadges: {},
-          textBased: {},
-          imageBased: {
-            badgeObject: [
-              {
-                attributes: {
-                  imageId: "Rxawards/_CATEGORY-Pizza.png",
-                  description: "Delivery!",
-                },
-              },
-            ],
-          },
-        },
-      },
-      aggregatedDiscountInfoV3: {
-        header: "₹125 OFF",
-        subHeader: "ABOVE ₹349",
-        discountTag: "FLAT DEAL",
-      },
-      orderabilityCommunication: {
-        title: {},
-        subTitle: {},
-        message: {},
-        customIcon: {},
-      },
-      differentiatedUi: {
-        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-        differentiatedUiMediaDetails: {
-          mediaType: "ADS_MEDIA_ENUM_IMAGE",
-          lottie: {},
-          video: {},
-        },
-      },
-      reviewsSummary: {},
-      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-      restaurantOfferPresentationInfo: {},
-      externalRatings: {
-        aggregatedRating: {
-          rating: "4.2",
-          ratingCount: "1K+",
-        },
-        source: "GOOGLE",
-        sourceIconImageId: "v1704440323/google_ratings/rating_google_tag",
-      },
-      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
-    },
-    analytics: {},
-    cta: {
-      link: "swiggy://menu?restaurant_id=89361&source=collection&query=Pizza",
-      text: "RESTAURANT_MENU",
-      type: "DEEPLINK",
-    },
-    widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food",
-  },
-  {
-    type: "restaurant",
-    data: {
-      type: "F",
-      id: "808833",
-      name: "The Cake Shop",
-      cloudinaryImageId: "dek7ifvgfbnddngpqn4r",
-      locality: "Ram Ram Bank",
-      areaName: "Aliganj",
-      costForTwo: "₹299 for two",
-      cuisines: ["Snacks", "Sweets", "Desserts", "Beverages"],
-      avgRating: 4.2,
-      parentId: "4961",
-      avgRatingString: "4.3",
-      totalRatingsString: "10K+",
-      sla: {
-        deliveryTime: 59,
-        lastMileTravel: 0.8,
-        serviceability: "SERVICEABLE",
-        slaString: "20-25 mins",
-        lastMileTravelString: "0.8 km",
-        iconType: "ICON_TYPE_EMPTY",
-      },
-      availability: {
-        nextCloseTime: "2024-05-19 04:00:00",
-        opened: true,
-      },
-      badges: {
-        imageBadges: [
-          {
-            imageId: "Rxawards/_CATEGORY-Pizza.png",
-            description: "Delivery!",
-          },
-        ],
-      },
-      isOpen: true,
-      type: "F",
-      badgesV2: {
-        entityBadges: {
-          textExtendedBadges: {},
-          textBased: {},
-          imageBased: {
-            badgeObject: [
-              {
-                attributes: {
-                  imageId: "Rxawards/_CATEGORY-Pizza.png",
-                  description: "Delivery!",
-                },
-              },
-            ],
-          },
-        },
-      },
-      aggregatedDiscountInfoV3: {
-        header: "₹125 OFF",
-        subHeader: "ABOVE ₹349",
-        discountTag: "FLAT DEAL",
-      },
-      orderabilityCommunication: {
-        title: {},
-        subTitle: {},
-        message: {},
-        customIcon: {},
-      },
-      differentiatedUi: {
-        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-        differentiatedUiMediaDetails: {
-          mediaType: "ADS_MEDIA_ENUM_IMAGE",
-          lottie: {},
-          video: {},
-        },
-      },
-      reviewsSummary: {},
-      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-      restaurantOfferPresentationInfo: {},
-      externalRatings: {
-        aggregatedRating: {
-          rating: "4.2",
-          ratingCount: "1K+",
-        },
-        source: "GOOGLE",
-        sourceIconImageId: "v1704440323/google_ratings/rating_google_tag",
-      },
-      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
-    },
-    analytics: {},
-    cta: {
-      link: "swiggy://menu?restaurant_id=89361&source=collection&query=Pizza",
-      text: "RESTAURANT_MENU",
-      type: "DEEPLINK",
-    },
-    widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food",
-  },
-  {
-    type: "restaurant",
-    data: {
-      type: "F",
-      id: "446923",
-      name: "Roasties",
-      cloudinaryImageId: "8f91d9d426273bba6ae0d6c09bbede98",
-      locality: "Hussainabad",
-      areaName: "Chowk",
-      costForTwo: "₹200 for two",
-      cuisines: ["Pizzas", "Snacks"],
-      avgRating: 4.2,
-      parentId: "4961",
-      avgRatingString: "4.3",
-      totalRatingsString: "10K+",
-      sla: {
-        deliveryTime: 56,
-        lastMileTravel: 0.8,
-        serviceability: "SERVICEABLE",
-        slaString: "20-25 mins",
-        lastMileTravelString: "0.8 km",
-        iconType: "ICON_TYPE_EMPTY",
-      },
-      availability: {
-        nextCloseTime: "2024-05-19 04:00:00",
-        opened: true,
-      },
-      badges: {
-        imageBadges: [
-          {
-            imageId: "Rxawards/_CATEGORY-Pizza.png",
-            description: "Delivery!",
-          },
-        ],
-      },
-      isOpen: true,
-      type: "F",
-      badgesV2: {
-        entityBadges: {
-          textExtendedBadges: {},
-          textBased: {},
-          imageBased: {
-            badgeObject: [
-              {
-                attributes: {
-                  imageId: "Rxawards/_CATEGORY-Pizza.png",
-                  description: "Delivery!",
-                },
-              },
-            ],
-          },
-        },
-      },
-      aggregatedDiscountInfoV3: {
-        header: "₹125 OFF",
-        subHeader: "ABOVE ₹349",
-        discountTag: "FLAT DEAL",
-      },
-      orderabilityCommunication: {
-        title: {},
-        subTitle: {},
-        message: {},
-        customIcon: {},
-      },
-      differentiatedUi: {
-        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-        differentiatedUiMediaDetails: {
-          mediaType: "ADS_MEDIA_ENUM_IMAGE",
-          lottie: {},
-          video: {},
-        },
-      },
-      reviewsSummary: {},
-      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-      restaurantOfferPresentationInfo: {},
-      externalRatings: {
-        aggregatedRating: {
-          rating: "4.2",
-          ratingCount: "1K+",
-        },
-        source: "GOOGLE",
-        sourceIconImageId: "v1704440323/google_ratings/rating_google_tag",
-      },
-      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
-    },
-    analytics: {},
-    cta: {
-      link: "swiggy://menu?restaurant_id=89361&source=collection&query=Pizza",
-      text: "RESTAURANT_MENU",
-      type: "DEEPLINK",
-    },
-    widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food",
-  },
-  {
-    type: "restaurant",
-    data: {
-      type: "F",
-      id: "59284",
-      name: "Domino's Pizza",
-      cloudinaryImageId: "d0450ce1a6ba19ea60cd724471ed54a8",
-      locality: "Hazratganj",
-      areaName: "Hazratganj",
-      costForTwo: "₹250 for two",
-      cuisines: ["Pizzas", "Pastas", "Italian", "Desserts"],
-      avgRating: 4.5,
-      parentId: "4961",
-      avgRatingString: "4.3",
-      totalRatingsString: "10K+",
-      sla: {
-        deliveryTime: 25,
-        lastMileTravel: 0.8,
-        serviceability: "SERVICEABLE",
-        slaString: "20-25 mins",
-        lastMileTravelString: "0.8 km",
-        iconType: "ICON_TYPE_EMPTY",
-      },
-      availability: {
-        nextCloseTime: "2024-05-19 04:00:00",
-        opened: true,
-      },
-      badges: {
-        imageBadges: [
-          {
-            imageId: "Rxawards/_CATEGORY-Pizza.png",
-            description: "Delivery!",
-          },
-        ],
-      },
-      isOpen: true,
-      type: "F",
-      badgesV2: {
-        entityBadges: {
-          textExtendedBadges: {},
-          textBased: {},
-          imageBased: {
-            badgeObject: [
-              {
-                attributes: {
-                  imageId: "Rxawards/_CATEGORY-Pizza.png",
-                  description: "Delivery!",
-                },
-              },
-            ],
-          },
-        },
-      },
-      aggregatedDiscountInfoV3: {
-        header: "₹125 OFF",
-        subHeader: "ABOVE ₹349",
-        discountTag: "FLAT DEAL",
-      },
-      orderabilityCommunication: {
-        title: {},
-        subTitle: {},
-        message: {},
-        customIcon: {},
-      },
-      differentiatedUi: {
-        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-        differentiatedUiMediaDetails: {
-          mediaType: "ADS_MEDIA_ENUM_IMAGE",
-          lottie: {},
-          video: {},
-        },
-      },
-      reviewsSummary: {},
-      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-      restaurantOfferPresentationInfo: {},
-      externalRatings: {
-        aggregatedRating: {
-          rating: "4.2",
-          ratingCount: "1K+",
-        },
-        source: "GOOGLE",
-        sourceIconImageId: "v1704440323/google_ratings/rating_google_tag",
-      },
-      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
-    },
-    analytics: {},
-    cta: {
-      link: "swiggy://menu?restaurant_id=89361&source=collection&query=Pizza",
-      text: "RESTAURANT_MENU",
-      type: "DEEPLINK",
-    },
-    widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food",
-  },
-  {
-    type: "restaurant",
-    data: {
-      type: "F",
-      id: "861451",
-      name: "Pastas By Pizza Hut",
-      cloudinaryImageId: "eaa84e9d425a118de381296f9f6df2ac",
-      locality: "Mandir Marg",
-      areaName: "Mahanagar",
-      costForTwo: "₹400 for two",
-      cuisines: ["Pastas"],
-      avgRating: 3.4,
-      parentId: "4961",
-      avgRatingString: "4.3",
-      totalRatingsString: "10K+",
-      sla: {
-        deliveryTime: 40,
-        lastMileTravel: 0.8,
-        serviceability: "SERVICEABLE",
-        slaString: "20-25 mins",
-        lastMileTravelString: "0.8 km",
-        iconType: "ICON_TYPE_EMPTY",
-      },
-      availability: {
-        nextCloseTime: "2024-05-19 04:00:00",
-        opened: true,
-      },
-      badges: {
-        imageBadges: [
-          {
-            imageId: "Rxawards/_CATEGORY-Pizza.png",
-            description: "Delivery!",
-          },
-        ],
-      },
-      isOpen: true,
-      type: "F",
-      badgesV2: {
-        entityBadges: {
-          textExtendedBadges: {},
-          textBased: {},
-          imageBased: {
-            badgeObject: [
-              {
-                attributes: {
-                  imageId: "Rxawards/_CATEGORY-Pizza.png",
-                  description: "Delivery!",
-                },
-              },
-            ],
-          },
-        },
-      },
-      aggregatedDiscountInfoV3: {
-        header: "₹125 OFF",
-        subHeader: "ABOVE ₹349",
-        discountTag: "FLAT DEAL",
-      },
-      orderabilityCommunication: {
-        title: {},
-        subTitle: {},
-        message: {},
-        customIcon: {},
-      },
-      differentiatedUi: {
-        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-        differentiatedUiMediaDetails: {
-          mediaType: "ADS_MEDIA_ENUM_IMAGE",
-          lottie: {},
-          video: {},
-        },
-      },
-      reviewsSummary: {},
-      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-      restaurantOfferPresentationInfo: {},
-      externalRatings: {
-        aggregatedRating: {
-          rating: "4.2",
-          ratingCount: "1K+",
-        },
-        source: "GOOGLE",
-        sourceIconImageId: "v1704440323/google_ratings/rating_google_tag",
-      },
-      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
-    },
-    analytics: {},
-    cta: {
-      link: "swiggy://menu?restaurant_id=89361&source=collection&query=Pizza",
-      text: "RESTAURANT_MENU",
-      type: "DEEPLINK",
-    },
-    widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food",
-  },
-];
+const primaryBtn =
+  "bg-amber-200 px-2 py-2 transition-all duration-300 rounded-lg text-amber-950 hover:bg-amber-100 text-sm focus:ring focus:ring-yellow-300 focus:ring-offset-2";
 
 const Body = () => {
-  return (
-    <div className="body">
-      <div className="search">Search</div>
-      <div className="res-container">
-        {resList.map((res, idx) => (
-          <RestaurantCard resData={res} key={res} />
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const onlineStatus = useOnlineStatus();
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
+  console.log(listOfRestaurants);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const res = await fetch(
+      "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.8466937&lng=80.94616599999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+
+    const data = await res.json();
+
+    const resData =
+      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants?.map(
+        (obj) => obj.info
+      );
+
+    setListOfRestaurants(resData);
+    setFilteredRestaurant(resData);
+  };
+
+  const handleFilterTopRated = () => {
+    setFilteredRestaurant(
+      listOfRestaurants.filter((res) => res.avgRating > 4.2)
+    );
+  };
+
+  if (onlineStatus === false)
+    return (
+      <h1>
+        Looks like you are offline! Please check your internet connection!
+      </h1>
+    );
+
+  return !listOfRestaurants.length ? (
+    <BodyShimmer />
+  ) : (
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-row gap-3">
+        <div className="flex flex-row gap-2">
+          <input
+            type="text"
+            className="border-2 border-solid border-yellow-900 rounded-lg px-2"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            className={primaryBtn}
+            onClick={() => {
+              setFilteredRestaurant(
+                listOfRestaurants.filter((res) =>
+                  res.name
+                    .toLowerCase()
+                    .includes(searchQuery.trim().toLowerCase())
+                )
+              );
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <button className={primaryBtn} onClick={handleFilterTopRated}>
+          Top Rated Restaurants
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 lg:gap-10">
+        {filteredRestaurant.map((res, idx) => (
+          <Link className="card-link" to={`/restaurant/${res.id}`} key={res.id}>
+            {<RestaurantCard resData={res} key={res.id} />}
+          </Link>
         ))}
       </div>
     </div>

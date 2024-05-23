@@ -17,7 +17,8 @@
 - Diagnostic
 - Error Handling
 - HTTPs
-- Tree
+- Tree Shaking
+- Different dev and prod bundles
 
 # Food Ordering App
 
