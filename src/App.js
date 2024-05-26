@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -9,15 +9,19 @@ import Error from "./components/Error";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   return (
-    <div className="px-20 font-poppins flex flex-col gap-10">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <div className="px-20 font-poppins flex flex-col gap-10">
+        <Header />
+        <Outlet />
+      </div>
+    </Provider>
   );
 };
 

@@ -5,7 +5,7 @@ import useOnlineStatus from "../hooks/useOnlineStatus";
 import BodyShimmer from "./BodyShimmer";
 
 const primaryBtn =
-  "bg-amber-200 px-2 py-2 transition-all duration-300 rounded-lg text-amber-950 hover:bg-amber-100 text-sm focus:ring focus:ring-yellow-300 focus:ring-offset-2";
+  "bg-amber-300 px-2 py-2 transition-all duration-300 rounded-lg text-amber-950 hover:bg-amber-200 text-sm focus:ring focus:ring-yellow-300 focus:ring-offset-2";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -17,8 +17,6 @@ const Body = () => {
   const onlineStatus = useOnlineStatus();
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
-
-  console.log(listOfRestaurants);
 
   useEffect(() => {
     fetchData();

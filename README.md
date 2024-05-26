@@ -42,3 +42,12 @@
 -      -Address
 -      -Contact
   \*/
+
+# Redux Toolkit
+
+-Install @reduxjs/toolkit and react-redux
+-Build Store
+-Connect store with app
+-Create a cart Slice
+-Dispatch action
+-Read data using selector
