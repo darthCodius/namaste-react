@@ -62,6 +62,7 @@ const Body = () => {
             className="border-2 border-solid border-yellow-900 rounded-lg px-2"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            data-testid="searchInput"
           />
           <button
             className={primaryBtn}

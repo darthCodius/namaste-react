@@ -5,7 +5,10 @@ const RestaurantCard = ({ resData }) => {
     resData;
 
   return (
-    <div className="flex flex-col w-72 transition-all duration-300 hover:-translate-y-1 shadow-xl rounded-xl h-[100%] p-2">
+    <div
+      data-testid="resCard"
+      className="flex flex-col w-72 transition-all duration-300 hover:-translate-y-1 shadow-xl rounded-xl h-[100%] p-2"
+    >
       <img
         src={`${IMG_URL}${cloudinaryImageId}`}
         alt="res-logo"

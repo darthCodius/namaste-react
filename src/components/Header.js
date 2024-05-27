@@ -2,7 +2,6 @@ import { useState } from "react";
 import { LOGO_URL as logo } from "../utils/constants";
 import { NavLink } from "react-router-dom";
 import useOnlineStatus from "../hooks/useOnlineStatus";
-
 import { useSelector } from "react-redux";
 import { CiShoppingCart } from "react-icons/ci";
 import { getCart } from "../slices/cartSlice";
@@ -51,7 +50,7 @@ const Header = () => {
 
           <li>
             <NavLink to="/cart" className={`${navItem} flex gap-1`}>
-              <CiShoppingCart size={25} />{" "}
+              <CiShoppingCart data-testid="cart-icon" size={25} />{" "}
               {cartItems.length > 0 ? cartItems.length : ""}
             </NavLink>
           </li>
